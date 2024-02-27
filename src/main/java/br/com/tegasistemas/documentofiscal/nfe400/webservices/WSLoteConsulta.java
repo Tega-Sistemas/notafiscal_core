@@ -1,0 +1,56 @@
+package br.com.tegasistemas.documentofiscal.nfe400.webservices;
+
+import br.com.tegasistemas.documentofiscal.nfe400.webservices.gerado.NFeRetAutorizacao4Stub;
+import br.com.tegasistemas.documentofiscal.DFAmbiente;
+import br.com.tegasistemas.documentofiscal.DFLog;
+import br.com.tegasistemas.documentofiscal.DFModelo;
+import br.com.tegasistemas.documentofiscal.nfe.NFeConfig;
+import br.com.tegasistemas.documentofiscal.nfe400.classes.NFAutorizador400;
+import br.com.tegasistemas.documentofiscal.nfe400.classes.lote.consulta.NFLoteConsulta;
+import br.com.tegasistemas.documentofiscal.nfe400.classes.lote.consulta.NFLoteConsultaRetorno;
+import org.apache.axiom.om.OMElement;
+import org.apache.axiom.om.util.AXIOMUtil;
+
+import java.math.BigDecimal;
+import java.rmi.RemoteException;
+
+class WSLoteConsulta implements DFLog {
+    
+    private final NFeConfig config;
+    
+    WSLoteConsulta(final NFeConfig config) {
+        this.config = config;
+    }
+    
+    NFLoteConsultaRetorno consultaLote(final String numeroRecibo, final DFModelo modelo) throws Exception {
+        final OMElement omElementConsulta = AXIOMUtil.stringToOM(this.gerarDadosConsulta(numeroRecibo).toString());
+        this.getLogger().debug(omElementConsulta.toString());
+        
+        final OMElement omElementResult = this.efetuaConsulta(omElementConsulta, modelo);
+        this.getLogger().debug(omElementResult.toString());
+        
+        return this.config.getPersister().read(NFLoteConsultaRetorno.class, omElementResult.toString());
+    }
+    
+    private OMElement efetuaConsulta(final OMElement omElement, final DFModelo modelo) throws RemoteException {
+        final NFeRetAutorizacao4Stub.NfeDadosMsg dados = new NFeRetAutorizacao4Stub.NfeDadosMsg();
+        dados.setExtraElement(omElement);
+        
+        final NFAutorizador400 autorizador = NFAutorizador400.valueOfTipoEmissao(this.config.getTipoEmissao(), this.config.getCUF());
+        System.out.println("autorizador: " + autorizador.getNfceConsultaProtocolo(DFAmbiente.PRODUCAO));
+        final String urlWebService = DFModelo.NFCE.equals(modelo) ? autorizador.getNfceRetAutorizacao(this.config.getAmbiente()) : autorizador.getNfeRetAutorizacao(this.config.getAmbiente());
+        if (urlWebService == null) {
+            throw new IllegalArgumentException("Nao foi possivel encontrar URL para RetAutorizacao " + modelo.name() + ", autorizador " + autorizador.name());
+        }
+        final NFeRetAutorizacao4Stub.NfeResultMsg autorizacaoLoteResult = new NFeRetAutorizacao4Stub(urlWebService).nfeRetAutorizacaoLote(dados);
+        return autorizacaoLoteResult.getExtraElement();
+    }
+    
+    private NFLoteConsulta gerarDadosConsulta(final String numeroRecibo) {
+        final NFLoteConsulta consulta = new NFLoteConsulta();
+        consulta.setRecibo(numeroRecibo);
+        consulta.setAmbiente(this.config.getAmbiente());
+        consulta.setVersao(new BigDecimal(this.config.getVersao()));
+        return consulta;
+    }
+}
