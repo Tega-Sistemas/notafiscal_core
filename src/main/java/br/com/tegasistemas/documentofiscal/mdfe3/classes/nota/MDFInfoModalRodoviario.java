@@ -33,8 +33,8 @@ public class MDFInfoModalRodoviario extends DFBase {
     /**
      * <h1>Dados dos reboques.</h1>
      */
-    @Element(name = "veicReboque", required = false)
-    private MDFInfoModalRodoviarioVeiculoReboque veiculoReboques;
+    @ElementList(entry = "veicReboque", inline = true, required = false)
+    private List<MDFInfoModalRodoviarioVeiculoReboque> veiculoReboques;
 
     /**
      * <h1>Código de Agendamento no porto.</h1>
@@ -64,11 +64,11 @@ public class MDFInfoModalRodoviario extends DFBase {
         this.veiculoTracao = veiculoTracao;
     }
 
-    public MDFInfoModalRodoviarioVeiculoReboque getVeiculoReboques() {
-        return this.veiculoReboques;
+    public List<MDFInfoModalRodoviarioVeiculoReboque> getVeiculoReboques() {
+        return veiculoReboques;
     }
 
-    public void setVeiculoReboques(MDFInfoModalRodoviarioVeiculoReboque veiculoReboques) {
+    public void setVeiculoReboques(List<MDFInfoModalRodoviarioVeiculoReboque> veiculoReboques) {
         this.veiculoReboques = veiculoReboques;
     }
 

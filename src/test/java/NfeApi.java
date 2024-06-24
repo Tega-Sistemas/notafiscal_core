@@ -3,6 +3,7 @@ import br.com.tegasistemas.documentofiscal.DFModelo;
 import br.com.tegasistemas.documentofiscal.DFUnidadeFederativa;
 import br.com.tegasistemas.documentofiscal.nfe.NFTipoEmissao;
 import br.com.tegasistemas.documentofiscal.nfe.NFeConfig;
+import br.com.tegasistemas.documentofiscal.nfe.classes.distribuicao.NFDistribuicaoIntRetorno;
 import br.com.tegasistemas.documentofiscal.nfe400.classes.cadastro.NFRetornoConsultaCadastro;
 import br.com.tegasistemas.documentofiscal.nfe400.classes.evento.NFEnviaEventoRetorno;
 import br.com.tegasistemas.documentofiscal.nfe400.classes.evento.cancelamento.NFProtocoloEventoCancelamento;
@@ -167,6 +168,22 @@ public class NfeApi {
         } catch (NumberFormatException e) {
             sCodigoSegurancaContribuinteID = 0;
         }
+    }
+
+    //
+    public String NFConsultaDFe(String cnpj, String unidadefederativa, String chaveAcesso, String nsu, String ultNSU) {
+
+        DFUnidadeFederativa dfunidadefederativa = BuscaUnidadeFederativa(unidadefederativa);
+        String retorno = null;
+
+        try {
+            NFDistribuicaoIntRetorno retDFe = new WSFacade(config).consultarDistribuicaoDFe(cnpj, dfunidadefederativa, chaveAcesso, nsu, ultNSU);
+            retorno = retDFe.toString();
+        } catch (Exception e) {
+            retorno = e.getMessage();
+        }
+
+        return retorno;
     }
 
     public String NfConsultaCNPJ(String cnpj, String unidadefederativa) {

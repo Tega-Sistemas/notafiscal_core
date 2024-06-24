@@ -359,7 +359,7 @@ public class CTeConsultaV4Stub extends org.apache.axis2.client.Stub {
             this.localExtraElement = param;
         }
 
-        @Override
+        //@Override
         public XMLStreamReader getPullParser(QName qName) throws XMLStreamException {
             return null;
         }
@@ -753,7 +753,7 @@ public class CTeConsultaV4Stub extends org.apache.axis2.client.Stub {
             this.localExtraElement = param;
         }
 
-        @Override
+        //@Override
         public XMLStreamReader getPullParser(QName qName) throws XMLStreamException {
             return null;
         }

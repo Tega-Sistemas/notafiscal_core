@@ -28,42 +28,20 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <axis2.version>1.6.4</axis2.version>
+        <axis2.version>1.7.9</axis2.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <junit.version>4.13.1</junit.version>
+        <junit.version>4.13.2</junit.version>
         <commons-lang3.version>3.11</commons-lang3.version>
         <simple-xml.version>2.7.1</simple-xml.version>
     </properties>
-
-    <developers>
-        <developer>
-            <id>jefperito</id>
-            <name>Jeferson Viana Perito</name>
-            <url>https://github.com/jefperito</url>
-        </developer>
-        <developer>
-            <id>fincatto</id>
-            <name>Diego Fincatto</name>
-            <url>https://github.com/fincatto</url>
-        </developer>
-        <developer>
-            <id>flppsilva</id>
-            <name>Felippe Silva</name>
-            <url>https://github.com/flppsilva</url>
-        </developer>
-        <developer>
-            <id>cbockorny</id>
-            <name>Carine Bockorny</name>
-            <url>https://github.com/cbockorny</url>
-        </developer>
-    </developers>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.10</version>
+            <version>4.5.13</version>
         </dependency>
+
         <!-- Simple Xml Framework -->
         <dependency>
             <groupId>org.simpleframework</groupId>
@@ -91,6 +69,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2-adb</artifactId>
@@ -109,6 +88,7 @@
             <version>${axis2.version}</version>
             <scope>compile</scope>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp -->
         <dependency>
             <groupId>com.squareup.okio</groupId>

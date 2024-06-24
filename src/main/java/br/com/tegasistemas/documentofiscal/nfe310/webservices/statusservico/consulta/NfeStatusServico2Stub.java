@@ -406,7 +406,7 @@ public class NfeStatusServico2Stub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             // We can safely assume an element has only one type associated with it
             return this.localNfeCabecMsg.getPullParser(NfeCabecMsgE.MY_QNAME);
@@ -626,7 +626,7 @@ public class NfeStatusServico2Stub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final java.util.ArrayList elementList = new java.util.ArrayList();
             final java.util.ArrayList attribList = new java.util.ArrayList();
@@ -972,7 +972,7 @@ public class NfeStatusServico2Stub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final java.util.ArrayList elementList = new java.util.ArrayList();
             final java.util.ArrayList attribList = new java.util.ArrayList();
@@ -1260,7 +1260,7 @@ public class NfeStatusServico2Stub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final java.util.ArrayList elementList = new java.util.ArrayList();
             final java.util.ArrayList attribList = new java.util.ArrayList();

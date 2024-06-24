@@ -59,4 +59,5 @@ class WSStatusConsulta implements DFLog {
         }
         return new NfeStatusServico4Stub(endpoint, config).nfeStatusServicoNF(dados).getExtraElement();
     }
+
 }

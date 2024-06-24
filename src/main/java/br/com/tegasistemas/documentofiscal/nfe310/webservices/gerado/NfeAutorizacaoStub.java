@@ -334,7 +334,7 @@ public class NfeAutorizacaoStub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final java.util.ArrayList<Object> elementList = new java.util.ArrayList<>();
             if (this.localExtraElement != null) {
@@ -439,7 +439,7 @@ public class NfeAutorizacaoStub extends org.apache.axis2.client.Stub {
             this.localNfeCabecMsg.serialize(NfeCabecMsgE.MY_QNAME, xmlWriter);
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             // We can safely assume an element has only one type associated with it
             return this.localNfeCabecMsg.getPullParser(NfeCabecMsgE.MY_QNAME);
@@ -574,7 +574,7 @@ public class NfeAutorizacaoStub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final java.util.ArrayList<Object> elementList = new java.util.ArrayList<>();
             if (this.localExtraElement != null) {
@@ -834,7 +834,7 @@ public class NfeAutorizacaoStub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final java.util.ArrayList<Serializable> elementList = new java.util.ArrayList<>();
             final java.util.ArrayList<Object> attribList = new java.util.ArrayList<>();
@@ -1049,7 +1049,7 @@ public class NfeAutorizacaoStub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) {
             // We can safely assume an element has only one type associated with it
             return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(NfeDadosMsgZip.MY_QNAME, new java.lang.Object[]{org.apache.axis2.databinding.utils.reader.ADBXMLStreamReader.ELEMENT_TEXT, org.apache.axis2.databinding.utils.ConverterUtil.convertToString(this.localNfeDadosMsgZip)}, null);
@@ -1188,7 +1188,7 @@ public class NfeAutorizacaoStub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final java.util.ArrayList<Object> elementList = new java.util.ArrayList<>();
             if (this.localExtraElement != null) {

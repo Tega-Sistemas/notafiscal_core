@@ -11,6 +11,7 @@ import br.com.tegasistemas.documentofiscal.mdfe3.classes.lote.envio.MDFEnvioLote
 import br.com.tegasistemas.documentofiscal.mdfe3.classes.nota.MDFProcessado;
 import br.com.tegasistemas.documentofiscal.mdfe3.classes.nota.MDFe;
 import br.com.tegasistemas.documentofiscal.mdfe3.classes.nota.consulta.MDFeNotaConsultaRetorno;
+import br.com.tegasistemas.documentofiscal.mdfe3.classes.nota.envio.MDFEnvioRetornoDados;
 import br.com.tegasistemas.documentofiscal.mdfe3.classes.nota.evento.MDFeRetorno;
 import br.com.tegasistemas.documentofiscal.mdfe3.utils.MDFGeraQRCode;
 import br.com.tegasistemas.documentofiscal.mdfe3.webservices.WSFacade;
@@ -246,7 +247,7 @@ public class MDFeAPI {
         return dfambiente;
     }
 
-    public String transmitir(String loteid, String ver, String xml) {
+    public String transmitir(String xml) {
 
         xml = xml.replaceAll("\r", "");
         xml = xml.replaceAll("\t", "");
@@ -263,17 +264,19 @@ public class MDFeAPI {
         }
 
         try {
-            MDFe mdfe = new DFPersister(false).read(MDFe.class, value);
-            System.out.println(mdfe);
-            MDFEnvioLote LoteEnvio = new MDFEnvioLote();
-            LoteEnvio.setIdLote(loteid);
-            LoteEnvio.setVersao(ver);
-            LoteEnvio.setMdfe(mdfe);
-            System.out.println(LoteEnvio.toString());
-            MDFEnvioLoteRetornoDados mdfEnvioLoteRetornoDados = new WSFacade(config).envioRecepcaoLote(LoteEnvio);
 
-            logs = mdfEnvioLoteRetornoDados.getLoteAssinado().toString();
-            logs += ";" + mdfEnvioLoteRetornoDados.getRetorno();
+            MDFe mdfe = new DFPersister().read(MDFe.class, value);
+            MDFEnvioRetornoDados mdfEnvioLoteRetornoDados = new WSFacade(config).envioRecepcaoSinc(mdfe);
+
+
+            if(mdfEnvioLoteRetornoDados.getRetorno().getStatus().equals("100")) {
+                logs = consultaXMLProcMDFe("",
+                        mdfEnvioLoteRetornoDados.getRetorno().getMdfProtocolo().getProtocoloInfo().getNumeroProtocolo(),
+                        mdfEnvioLoteRetornoDados.getRetorno().getMdfProtocolo().getProtocoloInfo().getChave(),
+                        mdfEnvioLoteRetornoDados.getMDFEAssinado().toString());
+            } else {
+                logs = mdfEnvioLoteRetornoDados.toString();
+            }
 
         } catch (Exception e) {
             logs = "error: " + e.getMessage();
@@ -377,13 +380,13 @@ public class MDFeAPI {
             DFModelo dfmodelo;
             BigDecimal VERSAO_LEIAUTE = new BigDecimal("3.00");
             MDFProcessado mdfe = new MDFProcessado();
-            MDFEnvioLote mdfeEnvio = new MDFEnvioLote();
+            MDFe mdfeEnvio = new MDFe();
             MDFeConsultaReciboRetorno mdfecons = new MDFeConsultaReciboRetorno();
             MDFeNotaConsultaRetorno mdfEnvioLoteRetornoDados = new MDFeNotaConsultaRetorno();
 
             boolean continuar = false;
             try {
-                mdfeEnvio = new DFPersister(false).read(MDFEnvioLote.class, xml);
+                mdfeEnvio = new DFPersister(false).read(MDFe.class, xml);
             } catch (Exception e) {
                 logs = e.getMessage();
             }
@@ -395,44 +398,45 @@ public class MDFeAPI {
             }
 
             if (mdfEnvioLoteRetornoDados.getStatus().equals("100")) {
+//                try {
+//                    mdfecons = new DFPersister(false).read(MDFeConsultaReciboRetorno.class,  new WSFacade(config).consultaRecibo(recibo));
+//                    continuar = true;
+//                } catch (Exception e) {
+//                    logs = e.getMessage();
+//                }
+                //if (continuar) {
                 try {
-                    mdfecons = new DFPersister(false).read(MDFeConsultaReciboRetorno.class,  new WSFacade(config).consultaRecibo(recibo));
-                    continuar = true;
+                    //MDFProtocoloInfo m = mdfecons.getMdfProtocolo().getProtocoloInfo();
+                    MDFProtocoloInfo m = mdfEnvioLoteRetornoDados.getProtocolo().getProtocoloInfo();
+                    //System.out.println(mdfecons.getMdfProtocolo().getProtocoloInfo().toString());
+                    m.setStatus(mdfEnvioLoteRetornoDados.getStatus());
+                    //System.out.println(mdfEnvioLoteRetornoDados.getStatus().toString());
+                    m.setMotivo(mdfEnvioLoteRetornoDados.getMotivo());
+                    //System.out.println(mdfEnvioLoteRetornoDados.getMotivo().toString());
+                    m.setNumeroProtocolo(numprotocolo);
+                    //System.out.println(numprotocolo);
+                    MDFProtocolo prot = new MDFProtocolo();
+                    prot.setProtocoloInfo(m);
+                    prot.setVersao("3.00");
+
+                    MDFProtocoloInfo mdh = new MDFProtocoloInfo();
+                    mdh = prot.getProtocoloInfo();
+
+                    if (mdh.getDataRecebimento() == null) {
+                        mdh.setDataRecebimento(ZonedDateTime.now());
+                    }
+
+                    mdfe.setMdfe(mdfeEnvio);
+                    mdfe.setVersao(VERSAO_LEIAUTE);
+                    mdfe.setProtocolo(prot);
+                    logs = mdfe.toString();
                 } catch (Exception e) {
                     logs = e.getMessage();
                 }
-                if (continuar) {
-                    try {
-                        MDFProtocoloInfo m = mdfecons.getMdfProtocolo().getProtocoloInfo();
-                        System.out.println(mdfecons.getMdfProtocolo().getProtocoloInfo().toString());
-                        m.setStatus(mdfEnvioLoteRetornoDados.getStatus());
-                        System.out.println(mdfEnvioLoteRetornoDados.getStatus().toString());
-                        m.setMotivo(mdfEnvioLoteRetornoDados.getMotivo());
-                        System.out.println(mdfEnvioLoteRetornoDados.getMotivo().toString());
-                        m.setNumeroProtocolo(numprotocolo);
-                        System.out.println(numprotocolo);
-                        MDFProtocolo prot = new MDFProtocolo();
-                        prot.setProtocoloInfo(m);
-                        prot.setVersao("3.00");
-
-                        MDFProtocoloInfo mdh = new MDFProtocoloInfo();
-                        mdh = prot.getProtocoloInfo();
-
-                        if (mdh.getDataRecebimento() == null) {
-                            mdh.setDataRecebimento(ZonedDateTime.now());
-                        }
-
-                        mdfe.setMdfe(mdfeEnvio.getMdfe());
-                        mdfe.setVersao(VERSAO_LEIAUTE);
-                        mdfe.setProtocolo(prot);
-                        logs = mdfe.toString();
-                    } catch (Exception e) {
-                        logs = e.getMessage();
-                    }
-                } else {
-                    logs = "Não foi possível receber o protocolo";
-                }
+            } else {
+                logs = "Não foi possível receber o protocolo";
             }
+//            }
         } catch (Exception e) {
             System.out.println("a");
             logs = e.getMessage();
@@ -441,6 +445,10 @@ public class MDFeAPI {
         return logs;
     }
 
+    public String teste() {
+        System.out.println(ZonedDateTime.now(this.config.getTimeZone().toZoneId()));
+        return "";
+    }
 
 }
 

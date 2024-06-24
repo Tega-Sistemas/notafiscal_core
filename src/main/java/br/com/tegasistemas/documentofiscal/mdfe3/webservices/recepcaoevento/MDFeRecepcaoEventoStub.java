@@ -3,11 +3,13 @@
  */
 package br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento;
 
+import javax.xml.namespace.QName;
+
 import org.apache.axiom.om.OMAttribute;
 import org.apache.axis2.client.Stub;
-import org.apache.axis2.databinding.utils.Constants;
 
-import javax.xml.namespace.QName;
+import br.com.tegasistemas.documentofiscal.DFConfig;
+import br.com.tegasistemas.documentofiscal.utils.MessageContextFactory;
 
 /*
  * MDFeRecepcaoEventoStub java implementation
@@ -56,14 +58,14 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
      * Constructor that takes in a configContext
      */
 
-    public MDFeRecepcaoEventoStub(final org.apache.axis2.context.ConfigurationContext configurationContext, final java.lang.String targetEndpoint) throws org.apache.axis2.AxisFault {
-        this(configurationContext, targetEndpoint, false);
+    public MDFeRecepcaoEventoStub(final org.apache.axis2.context.ConfigurationContext configurationContext, final java.lang.String targetEndpoint, DFConfig config) throws org.apache.axis2.AxisFault {
+        this(configurationContext, targetEndpoint, false, config);
     }
 
     /**
      * Constructor that takes in a configContext and useseperate listner
      */
-    public MDFeRecepcaoEventoStub(final org.apache.axis2.context.ConfigurationContext configurationContext, final java.lang.String targetEndpoint, final boolean useSeparateListener) throws org.apache.axis2.AxisFault {
+    public MDFeRecepcaoEventoStub(final org.apache.axis2.context.ConfigurationContext configurationContext, final java.lang.String targetEndpoint, final boolean useSeparateListener, DFConfig config) throws org.apache.axis2.AxisFault {
         // To populate AxisService
         this.populateAxisService();
         this.populateFaults();
@@ -72,27 +74,14 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
         this._serviceClient.getOptions().setUseSeparateListener(useSeparateListener);
         // Set the soap version
         this._serviceClient.getOptions().setSoapVersionURI(org.apache.axiom.soap.SOAP12Constants.SOAP_ENVELOPE_NAMESPACE_URI);
-    }
-
-    /**
-     * Default Constructor
-     */
-    public MDFeRecepcaoEventoStub(final org.apache.axis2.context.ConfigurationContext configurationContext) throws org.apache.axis2.AxisFault {
-        this(configurationContext, "https://mdfe.sefaz.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx");
-    }
-
-    /**
-     * Default Constructor
-     */
-    public MDFeRecepcaoEventoStub() throws org.apache.axis2.AxisFault {
-        this("https://mdfe.sefaz.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx");
+        this.config = config;
     }
 
     /**
      * Constructor taking the target endpoint
      */
-    public MDFeRecepcaoEventoStub(final java.lang.String targetEndpoint) throws org.apache.axis2.AxisFault {
-        this(null, targetEndpoint);
+    public MDFeRecepcaoEventoStub(final java.lang.String targetEndpoint, DFConfig config) throws org.apache.axis2.AxisFault {
+        this(null, targetEndpoint, config);
     }
 
     /**
@@ -102,7 +91,7 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
      */
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult mdfeRecepcaoEvento(final MDFeRecepcaoEventoStub.MdfeDadosMsg mdfeDadosMsg0, final MDFeRecepcaoEventoStub.MdfeCabecMsgE mdfeCabecMsg1) throws java.rmi.RemoteException {
+    public br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult mdfeRecepcaoEvento(final br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg mdfeDadosMsg0, final br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE mdfeCabecMsg1) throws java.rmi.RemoteException {
         org.apache.axis2.context.MessageContext _messageContext = null;
         try {
             final org.apache.axis2.client.OperationClient _operationClient = this._serviceClient.createClient(this._operations[0].getName());
@@ -110,7 +99,7 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
             _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
             this.addPropertyToOperationClient(_operationClient, org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR, "&");
             // create a message context
-            _messageContext = new org.apache.axis2.context.MessageContext();
+            _messageContext = MessageContextFactory.INSTANCE.create(config);
             // create SOAP envelope with that payload
             org.apache.axiom.soap.SOAPEnvelope env;
             env = this.toEnvelope(Stub.getFactory(_operationClient.getOptions().getSoapVersionURI()), mdfeDadosMsg0, this.optimizeContent(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento", "mdfeRecepcaoEvento")), new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento", "mdfeRecepcaoEvento"));
@@ -130,8 +119,8 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
             _operationClient.execute(true);
             final org.apache.axis2.context.MessageContext _returnMessageContext = _operationClient.getMessageContext(org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
             final org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-            final java.lang.Object object = this.fromOM(_returnEnv.getBody().getFirstElement(), MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.class, this.getEnvelopeNamespaces(_returnEnv));
-            return (MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult) object;
+            final java.lang.Object object = this.fromOM(_returnEnv.getBody().getFirstElement(), br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.class, this.getEnvelopeNamespaces(_returnEnv));
+            return (br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult) object;
         } catch (final org.apache.axis2.AxisFault f) {
             final org.apache.axiom.om.OMElement faultElt = f.getDetail();
             if (faultElt != null) {
@@ -171,14 +160,14 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
      * @param mdfeDadosMsg0
      * @param mdfeCabecMsg1
      */
-    public void startmdfeRecepcaoEvento(final MDFeRecepcaoEventoStub.MdfeDadosMsg mdfeDadosMsg0, final MDFeRecepcaoEventoStub.MdfeCabecMsgE mdfeCabecMsg1, final MDFeRecepcaoEventoCallbackHandler callback) throws java.rmi.RemoteException {
+    public void startmdfeRecepcaoEvento(final br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg mdfeDadosMsg0, final br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE mdfeCabecMsg1, final br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoCallbackHandler callback) throws java.rmi.RemoteException {
         final org.apache.axis2.client.OperationClient _operationClient = this._serviceClient.createClient(this._operations[0].getName());
         _operationClient.getOptions().setAction("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento/mdfeRecepcaoEvento");
         _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
         this.addPropertyToOperationClient(_operationClient, org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR, "&");
         // create SOAP envelope with that payload
         org.apache.axiom.soap.SOAPEnvelope env;
-        final org.apache.axis2.context.MessageContext _messageContext = new org.apache.axis2.context.MessageContext();
+        final org.apache.axis2.context.MessageContext _messageContext = MessageContextFactory.INSTANCE.create(config);
         // Style is Doc.
         env = this.toEnvelope(Stub.getFactory(_operationClient.getOptions().getSoapVersionURI()), mdfeDadosMsg0, this.optimizeContent(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento", "mdfeRecepcaoEvento")), new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento", "mdfeRecepcaoEvento"));
         // add the soap_headers only if they are not null
@@ -197,8 +186,8 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
             public void onMessage(final org.apache.axis2.context.MessageContext resultContext) {
                 try {
                     final org.apache.axiom.soap.SOAPEnvelope resultEnv = resultContext.getEnvelope();
-                    final java.lang.Object object = MDFeRecepcaoEventoStub.this.fromOM(resultEnv.getBody().getFirstElement(), MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.class, MDFeRecepcaoEventoStub.this.getEnvelopeNamespaces(resultEnv));
-                    callback.receiveResultmdfeRecepcaoEvento((MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult) object);
+                    final java.lang.Object object = MDFeRecepcaoEventoStub.this.fromOM(resultEnv.getBody().getFirstElement(), br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.class, MDFeRecepcaoEventoStub.this.getEnvelopeNamespaces(resultEnv));
+                    callback.receiveResultmdfeRecepcaoEvento((br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult) object);
                 } catch (final org.apache.axis2.AxisFault e) {
                     callback.receiveErrormdfeRecepcaoEvento(e);
                 }
@@ -279,6 +268,7 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
     }
 
     private final javax.xml.namespace.QName[] opNameArray = null;
+    private final DFConfig config;
 
     private boolean optimizeContent(final javax.xml.namespace.QName opName) {
         if (this.opNameArray == null) {
@@ -508,15 +498,6 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
                 xmlWriter.setPrefix(prefix, namespace);
             }
             return prefix;
-        }
-
-        /**
-         * databinding method to get an XML representation of this object
-         */
-        @Override
-        public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
-            // We can safely assume an element has only one type associated with it
-            return this.localMdfeCabecMsg.getPullParser(MdfeCabecMsgE.MY_QNAME);
         }
 
         /**
@@ -778,23 +759,6 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
                 xmlWriter.setPrefix(prefix, namespace);
             }
             return prefix;
-        }
-
-        /**
-         * databinding method to get an XML representation of this object
-         */
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-        @Override
-        public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
-            final java.util.ArrayList elementList = new java.util.ArrayList();
-            final java.util.ArrayList attribList = new java.util.ArrayList();
-            if (this.localExtraElement != null) {
-                elementList.add(org.apache.axis2.databinding.utils.Constants.OM_ELEMENT_KEY);
-                elementList.add(this.localExtraElement);
-            } else {
-                throw new org.apache.axis2.databinding.ADBException("extraElement cannot be null!!");
-            }
-            return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
         }
 
         /**
@@ -1083,23 +1047,6 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
                 xmlWriter.setPrefix(prefix, namespace);
             }
             return prefix;
-        }
-
-        /**
-         * databinding method to get an XML representation of this object
-         */
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-        @Override
-        public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
-            final java.util.ArrayList elementList = new java.util.ArrayList();
-            final java.util.ArrayList attribList = new java.util.ArrayList();
-            if (this.localExtraElement != null) {
-                elementList.add(org.apache.axis2.databinding.utils.Constants.OM_ELEMENT_KEY);
-                elementList.add(this.localExtraElement);
-            } else {
-                throw new org.apache.axis2.databinding.ADBException("extraElement cannot be null!!");
-            }
-            return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
         }
 
         /**
@@ -1505,37 +1452,6 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
         }
 
         /**
-         * databinding method to get an XML representation of this object
-         */
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-        @Override
-        public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
-            final java.util.ArrayList elementList = new java.util.ArrayList();
-            final java.util.ArrayList attribList = new java.util.ArrayList();
-            if (this.localCUFTracker) {
-                elementList.add(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento", "cUF"));
-                if (this.localCUF != null) {
-                    elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(this.localCUF));
-                } else {
-                    throw new org.apache.axis2.databinding.ADBException("cUF cannot be null!!");
-                }
-            }
-            if (this.localVersaoDadosTracker) {
-                elementList.add(new javax.xml.namespace.QName("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento", "versaoDados"));
-                if (this.localVersaoDados != null) {
-                    elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(this.localVersaoDados));
-                } else {
-                    throw new org.apache.axis2.databinding.ADBException("versaoDados cannot be null!!");
-                }
-            }
-            for (final OMAttribute localExtraAttribute : this.localExtraAttributes) {
-                attribList.add(Constants.OM_ATTRIBUTE_KEY);
-                attribList.add(localExtraAttribute);
-            }
-            return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
-        }
-
-        /**
          * Factory class that keeps the parse method
          */
         public static class Factory {
@@ -1626,35 +1542,35 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
     }
 
     @SuppressWarnings("unused")
-    private org.apache.axiom.om.OMElement toOM(final MDFeRecepcaoEventoStub.MdfeDadosMsg param, final boolean optimizeContent) {
+    private org.apache.axiom.om.OMElement toOM(final br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg param, final boolean optimizeContent) {
         // try {
-        return param.getOMElement(MDFeRecepcaoEventoStub.MdfeDadosMsg.MY_QNAME, org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+        return param.getOMElement(br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg.MY_QNAME, org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         // } catch (org.apache.axis2.databinding.ADBException e) {
         // throw org.apache.axis2.AxisFault.makeFault(e);
         // }
     }
 
     @SuppressWarnings("unused")
-    private org.apache.axiom.om.OMElement toOM(final MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult param, final boolean optimizeContent) {
+    private org.apache.axiom.om.OMElement toOM(final br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult param, final boolean optimizeContent) {
         // try {
-        return param.getOMElement(MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.MY_QNAME, org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+        return param.getOMElement(br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.MY_QNAME, org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         // } catch (org.apache.axis2.databinding.ADBException e) {
         // throw org.apache.axis2.AxisFault.makeFault(e);
         // }
     }
 
-    private org.apache.axiom.om.OMElement toOM(final MDFeRecepcaoEventoStub.MdfeCabecMsgE param, final boolean optimizeContent) {
+    private org.apache.axiom.om.OMElement toOM(final br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE param, final boolean optimizeContent) {
         // try {
-        return param.getOMElement(MDFeRecepcaoEventoStub.MdfeCabecMsgE.MY_QNAME, org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+        return param.getOMElement(br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE.MY_QNAME, org.apache.axiom.om.OMAbstractFactory.getOMFactory());
         // } catch (org.apache.axis2.databinding.ADBException e) {
         // throw org.apache.axis2.AxisFault.makeFault(e);
         // }
     }
 
-    private org.apache.axiom.soap.SOAPEnvelope toEnvelope(final org.apache.axiom.soap.SOAPFactory factory, final MDFeRecepcaoEventoStub.MdfeDadosMsg param, final boolean optimizeContent, final javax.xml.namespace.QName methodQName) {
+    private org.apache.axiom.soap.SOAPEnvelope toEnvelope(final org.apache.axiom.soap.SOAPFactory factory, final br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg param, final boolean optimizeContent, final javax.xml.namespace.QName methodQName) {
         // try {
         final org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
-        emptyEnvelope.getBody().addChild(param.getOMElement(MDFeRecepcaoEventoStub.MdfeDadosMsg.MY_QNAME, factory));
+        emptyEnvelope.getBody().addChild(param.getOMElement(br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg.MY_QNAME, factory));
         return emptyEnvelope;
         // } catch (org.apache.axis2.databinding.ADBException e) {
         // throw org.apache.axis2.AxisFault.makeFault(e);
@@ -1674,14 +1590,14 @@ public class MDFeRecepcaoEventoStub extends org.apache.axis2.client.Stub {
     @SuppressWarnings("rawtypes")
     private java.lang.Object fromOM(final org.apache.axiom.om.OMElement param, final java.lang.Class type, final java.util.Map extraNamespaces) throws org.apache.axis2.AxisFault {
         try {
-            if (MDFeRecepcaoEventoStub.MdfeDadosMsg.class.equals(type)) {
-                return MDFeRecepcaoEventoStub.MdfeDadosMsg.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg.class.equals(type)) {
+                return br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeDadosMsg.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
-            if (MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.class.equals(type)) {
-                return MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.class.equals(type)) {
+                return br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
-            if (MDFeRecepcaoEventoStub.MdfeCabecMsgE.class.equals(type)) {
-                return MDFeRecepcaoEventoStub.MdfeCabecMsgE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+            if (br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE.class.equals(type)) {
+                return br.com.tegasistemas.documentofiscal.mdfe3.webservices.recepcaoevento.MDFeRecepcaoEventoStub.MdfeCabecMsgE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
             }
         } catch (final java.lang.Exception e) {
             throw org.apache.axis2.AxisFault.makeFault(e);

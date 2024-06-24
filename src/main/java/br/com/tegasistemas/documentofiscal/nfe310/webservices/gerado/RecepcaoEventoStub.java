@@ -268,7 +268,7 @@ public class RecepcaoEventoStub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final List<Object> elementList = new ArrayList<>();
             final List<Object> attribList = new ArrayList<>();
@@ -447,7 +447,7 @@ public class RecepcaoEventoStub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final List<Object> elementList = new ArrayList<>();
             final List<Object> attribList = new ArrayList<>();
@@ -553,7 +553,7 @@ public class RecepcaoEventoStub extends org.apache.axis2.client.Stub {
             this.localNfeCabecMsg.serialize(NfeCabecMsgE.MY_QNAME, xmlWriter);
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             // We can safely assume an element has only one type associated with it
             return this.localNfeCabecMsg.getPullParser(NfeCabecMsgE.MY_QNAME);
@@ -779,7 +779,7 @@ public class RecepcaoEventoStub extends org.apache.axis2.client.Stub {
             return prefix;
         }
 
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final java.util.ArrayList<Serializable> elementList = new java.util.ArrayList<>();
             final java.util.ArrayList<Object> attribList = new java.util.ArrayList<>();

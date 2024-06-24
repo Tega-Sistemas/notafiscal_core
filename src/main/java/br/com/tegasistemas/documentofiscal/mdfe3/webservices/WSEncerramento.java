@@ -38,6 +38,7 @@ class WSEncerramento implements DFLog {
 
     MDFeRetorno encerraMdfe(final String chaveAcesso, final String numeroProtocolo, final String codigoMunicipio, final LocalDate dataEncerramento, final DFUnidadeFederativa unidadeFederativa) throws Exception {
         final String encerramentoNotaXML = this.gerarDadosEncerramento(chaveAcesso, numeroProtocolo, codigoMunicipio, dataEncerramento, unidadeFederativa).toString();
+        System.out.println(encerramentoNotaXML);
         final String xmlAssinado = new DFAssinaturaDigital(this.config).assinarDocumento(encerramentoNotaXML);
         final OMElement omElementResult = this.efetuaEncerramento(xmlAssinado, chaveAcesso);
         return this.config.getPersister().read(MDFeRetorno.class, omElementResult.toString());
@@ -63,7 +64,7 @@ class WSEncerramento implements DFLog {
         if (urlWebService == null) {
             throw new IllegalArgumentException("Nao foi possivel encontrar URL para RecepcaoEvento " + mdfChaveParser.getModelo().name() + ", autorizador " + autorizador.name());
         }
-        final MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult mdfeRecepcaoEventoResult = new MDFeRecepcaoEventoStub(urlWebService).mdfeRecepcaoEvento(dados, cabecE);
+        final MDFeRecepcaoEventoStub.MdfeRecepcaoEventoResult mdfeRecepcaoEventoResult = new MDFeRecepcaoEventoStub(urlWebService, this.config).mdfeRecepcaoEvento(dados, cabecE);
         final OMElement omElementResult = mdfeRecepcaoEventoResult.getExtraElement();
         this.getLogger().debug(omElementResult.toString());
         return omElementResult;

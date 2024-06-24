@@ -46,7 +46,7 @@ class WSNotaConsulta implements DFLog {
         
         final MDFAutorizador3 autorizador = MDFAutorizador3.valueOfCodigoUF(this.config.getCUF());
         final String endpoint = autorizador.getMDFeConsulta(this.config.getAmbiente());
-        System.out.println(endpoint);
+
         if (endpoint == null) {
             throw new IllegalArgumentException("Nao foi possivel encontrar URL para Consulta, autorizador " + autorizador.name() + ", UF " + this.config.getCUF().name());
         }

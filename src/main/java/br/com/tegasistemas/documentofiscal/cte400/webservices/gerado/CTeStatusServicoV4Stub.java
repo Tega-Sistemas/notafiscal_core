@@ -359,7 +359,7 @@ public class CTeStatusServicoV4Stub extends org.apache.axis2.client.Stub {
             this.localExtraElement = param;
         }
 
-        @Override
+        //@Override
         public XMLStreamReader getPullParser(QName qName) throws XMLStreamException {
             final java.util.ArrayList elementList = new java.util.ArrayList();
             final java.util.ArrayList attribList = new java.util.ArrayList();
@@ -761,7 +761,7 @@ public class CTeStatusServicoV4Stub extends org.apache.axis2.client.Stub {
             this.localExtraElement = param;
         }
 
-        @Override
+        //@Override
         public XMLStreamReader getPullParser(QName qName) throws XMLStreamException {
             final java.util.ArrayList elementList = new java.util.ArrayList();
             final java.util.ArrayList attribList = new java.util.ArrayList();

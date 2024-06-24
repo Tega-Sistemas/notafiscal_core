@@ -227,7 +227,7 @@ public class CTeDistribuicaoDFeSoapStub extends org.apache.axis2.client.Stub {
             return isReaderMTOMAware;
         }
 
-        @Override
+        //@Override
         public XMLStreamReader getPullParser(QName qName) throws XMLStreamException {
             return null;
         }
@@ -531,7 +531,7 @@ public class CTeDistribuicaoDFeSoapStub extends org.apache.axis2.client.Stub {
             return isReaderMTOMAware;
         }
 
-        @Override
+        //@Override
         public XMLStreamReader getPullParser(QName qName) throws XMLStreamException {
             return null;
         }
@@ -849,7 +849,7 @@ public class CTeDistribuicaoDFeSoapStub extends org.apache.axis2.client.Stub {
             return isReaderMTOMAware;
         }
 
-        @Override
+        //@Override
         public XMLStreamReader getPullParser(QName qName) throws XMLStreamException {
             return null;
         }
@@ -1166,7 +1166,7 @@ public class CTeDistribuicaoDFeSoapStub extends org.apache.axis2.client.Stub {
             return isReaderMTOMAware;
         }
 
-        @Override
+        //@Override
         public XMLStreamReader getPullParser(QName qName) throws XMLStreamException {
             return null;
         }

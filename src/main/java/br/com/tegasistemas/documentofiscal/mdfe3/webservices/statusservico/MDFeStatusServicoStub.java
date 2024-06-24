@@ -506,7 +506,7 @@ public class MDFeStatusServicoStub extends org.apache.axis2.client.Stub {
         /**
          * databinding method to get an XML representation of this object
          */
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             // We can safely assume an element has only one type associated with it
             return this.localMdfeCabecMsg.getPullParser(MdfeCabecMsgE.MY_QNAME);
@@ -790,7 +790,7 @@ public class MDFeStatusServicoStub extends org.apache.axis2.client.Stub {
          * databinding method to get an XML representation of this object
          */
         @SuppressWarnings({"rawtypes", "unchecked"})
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final java.util.ArrayList elementList = new java.util.ArrayList();
             final java.util.ArrayList attribList = new java.util.ArrayList();
@@ -1097,7 +1097,7 @@ public class MDFeStatusServicoStub extends org.apache.axis2.client.Stub {
          * databinding method to get an XML representation of this object
          */
         @SuppressWarnings({"rawtypes", "unchecked"})
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final java.util.ArrayList elementList = new java.util.ArrayList();
             final java.util.ArrayList attribList = new java.util.ArrayList();
@@ -1523,7 +1523,7 @@ public class MDFeStatusServicoStub extends org.apache.axis2.client.Stub {
          * databinding method to get an XML representation of this object
          */
         @SuppressWarnings({"rawtypes", "unchecked"})
-        @Override
+        //@Override
         public javax.xml.stream.XMLStreamReader getPullParser(final javax.xml.namespace.QName qName) throws org.apache.axis2.databinding.ADBException {
             final java.util.ArrayList elementList = new java.util.ArrayList();
             final java.util.ArrayList attribList = new java.util.ArrayList();

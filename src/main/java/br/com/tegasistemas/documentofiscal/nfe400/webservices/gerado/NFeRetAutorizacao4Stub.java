@@ -381,7 +381,7 @@ public class NFeRetAutorizacao4Stub extends org.apache.axis2.client.Stub {
             }
         } // end of factory class
 
-        @Override
+        //@Override
         public XMLStreamReader getPullParser(final QName arg0) {
             return null;
         }
@@ -594,7 +594,7 @@ public class NFeRetAutorizacao4Stub extends org.apache.axis2.client.Stub {
             }
         } // end of factory class
 
-        @Override
+        //@Override
         public XMLStreamReader getPullParser(final QName arg0) {
             return null;
         }
